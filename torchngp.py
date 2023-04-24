@@ -183,7 +183,7 @@ def torchngp(data_path,workspace,O_mode=True,test_mode=False,seed=0,iters=200,in
         if test_loader.has_gt:
             trainer.evaluate(test_loader) # blender has gt, so evaluate it.
 
-        trainer.test(test_loader, write_video=True, write_image=True) # test and save video
+        trainer.test(test_loader, write_video=True) # test and save video
         
         trainer.save_mesh(resolution=256, threshold=10)
 
@@ -219,4 +219,4 @@ def torchngp(data_path,workspace,O_mode=True,test_mode=False,seed=0,iters=200,in
     loss = np.sum(trainer.stats["loss"]) / len(trainer.stats["loss"])
 
 
-    return PSNR,LPIPS,loss
+    return PSNR,LPIPS,loss,trainer
