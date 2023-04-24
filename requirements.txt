@@ -1,0 +1,21 @@
+#From torchngp; feel free to add other requirements here as well
+torch-ema
+ninja
+trimesh
+opencv-python
+tensorboardX
+torch
+numpy 
+pandas
+tqdm
+matplotlib
+PyMCubes
+rich
+pysdf
+dearpygui
+packaging
+scipy
+lpips
+imageio
+torchmetrics
+recordclass
