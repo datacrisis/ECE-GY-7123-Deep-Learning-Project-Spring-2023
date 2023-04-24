@@ -175,7 +175,18 @@ def torchngp(data_path,workspace,O_mode=True,test_mode=False,seed=0,iters=200,in
         valid_loader = NeRFDataset(opt, device=device, type='val', downscale=1).dataloader()
 
         max_epoch = np.ceil(opt.iters / len(train_loader)).astype(np.int32)
-        trainer.train(train_loader, valid_loader, max_epoch, skip_saving=True) #just reuse trainset for validation for now in GA
+        trainer.train(train_loader, valid_loader, max_epoch, skip_saving=False) #just reuse trainset for validation for now in GA
+
+        # also test
+        test_loader = NeRFDataset(opt, device=device, type='test').dataloader()
+        
+        if test_loader.has_gt:
+            trainer.evaluate(test_loader) # blender has gt, so evaluate it.
+
+        trainer.test(test_loader, write_video=True, write_image=True) # test and save video
+        
+        trainer.save_mesh(resolution=256, threshold=10)
+
 
         # if opt.gui:
         #     gui = NeRFGUI(opt, trainer, train_loader)
